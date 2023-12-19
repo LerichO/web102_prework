@@ -22,8 +22,6 @@ body {
 .stats-container {
     display: flex;
     align-items: flex-end;
-    cursor: pointer;
-    box-shadow: 0 0 30px lightblue; 
 }
 
 .stats-card {
@@ -61,7 +59,16 @@ body {
 }
 
 .game-card:hover {
-    cursor: pointer;
+    box-shadow: 0 0 30px lightblue;
+}
+
+#pledge-button{
+    padding: 10%;
+    margin: 1%;
+    border-radius: 7px;
+}
+
+.pledge-button:hover{
     box-shadow: 0 0 30px lightblue;
 }
 
@@ -70,6 +77,7 @@ body {
 }
 
 button {
+    cursor: pointer;
     font-family: 'Cabin';
     border: none;
     padding: 1%;

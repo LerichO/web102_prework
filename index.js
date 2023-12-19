@@ -43,13 +43,15 @@ function addGamesToPage(games) {
         // TIP: if your images are not displaying, make sure there is space
         // between the end of the src attribute and the end of the tag ("/>")
         gamesDiv.innerHTML = 
-            `<h2>${game["name"]}</h2>;
+            `<h2>${game["name"]}</h2>
             <img src=${game["img"]} class='game-img' />
             <p>${game["description"]}</p>
             <p><b>Pledged:</b> \$${game["pledged"]}</p>
             <p><b>Goal:</b> \$${game["goal"]}</p>
             <p><b>Backers:</b> ${game["backers"]}</p>
-
+            <div id="pledge-div">
+                <button id="pledge-button">Pledge</button>
+            </div>
             `;
 
         // append the game to the games-container
@@ -188,3 +190,36 @@ firstGameContainer.appendChild(topGameName);
 const runnerUpGameName = document.createElement("p");
 runnerUpGameName.innerHTML = secondGame.name;
 secondGameContainer.appendChild(runnerUpGameName);
+
+/************************************************************************************
+ * Extra additions after challenge 7
+ * Adding feature to make pledge to games - not a permanent change but still interesting change
+ * Adding feature to submit own game to Sea Monster Crowdfunding
+ */
+
+// can't use getElementsByClassName() since it is a list that can't use DOM attributes
+// getElementById only works on the first card
+
+const pledgeDiv = document.getElementById("pledge-div");
+document.getElementById("pledge-button").addEventListener("click", makePledge);
+
+function makePledge(){
+    pledgeDiv.innerHTML = `
+    <form id="pledge-form">
+    <label for="plede-amount">Pledge Amount:</label>
+    <input type="text" id="pledge-amount" name="fname"><br><br>
+    </form>
+    `;
+
+    document.getElementById('pledge-form').addEventListener('submit', function(){
+
+    });
+}
+
+function submitPledge(){
+
+}
+
+function cancelPledge(){
+
+}

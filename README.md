@@ -1,8 +1,8 @@
-# WEB102 Prework - *Aquatic Kickstarter*
+# WEB102 Prework - *Sea Monster Crowdfunding*
 
 Submitted by: **Lerich Osay**
 
-**Aquatic Kickstarter** is a website for the company Sea Monster Crowdfunding that displays information about the games they have funded.
+**Sea Monster Crowdfunding** is a website for the company Sea Monster Crowdfunding that displays information about the games they have funded.
 
 Time spent: **X** hours spent in total
 

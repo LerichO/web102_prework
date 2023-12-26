@@ -4,7 +4,7 @@ Submitted by: **Lerich Osay**
 
 **Aquatic Kickstarter** is a website for the company Sea Monster Crowdfunding that displays information about the games they have funded.
 
-Time spent: **X** hours spent in total
+Time spent: **10** hours spent in total
 
 ## Required Features
 
@@ -35,7 +35,7 @@ GIF created with ...
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+This has overall been a simple yet very informative starting project for intermediate web development. Although I have mostly dabbled in web development in Flask and React.js, this has been a good refresher for JavaScript's own DOM manipulation. It definitely took time to get familiar with DOM documentation, but once I had a good idea of what optional features I wanted to add it became a fulfilling journey.
 
 ## License
 

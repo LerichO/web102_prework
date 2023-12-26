@@ -62,7 +62,7 @@ body {
     box-shadow: 0 0 30px lightblue;
 }
 
-#pledge-button{
+.pledge-button{
     padding: 10%;
     margin: 1%;
     border-radius: 7px;

@@ -10,6 +10,9 @@ import GAMES_DATA from './games.js';
 // create a list of objects to store the data about the games using JSON.parse
 const GAMES_JSON = JSON.parse(GAMES_DATA)
 
+var i = 0;
+
+
 // remove all child elements from a parent element in the DOM
 function deleteChildElements(parent) {
     while (parent.firstChild) {
@@ -31,6 +34,7 @@ function addGamesToPage(games) {
     // loop over each item in the data
     const gamesContainer = document.querySelector('#games-container');
     let gamesListDiv = ``
+    i=0;
     for(let game of games){
         // create a new div element, which will become the game card
         let gamesDiv = document.createElement('div');
@@ -43,20 +47,30 @@ function addGamesToPage(games) {
         // TIP: if your images are not displaying, make sure there is space
         // between the end of the src attribute and the end of the tag ("/>")
         gamesDiv.innerHTML = 
-            `<h2>${game["name"]}</h2>
+            `<h2 id="game-title-${i}">${game["name"]}</h2>
             <img src=${game["img"]} class='game-img' />
             <p>${game["description"]}</p>
-            <p><b>Pledged:</b> \$${game["pledged"]}</p>
+            <p id="total-pledged-${i}"><b>Pledged:</b> \$${game["pledged"]}</p>
             <p><b>Goal:</b> \$${game["goal"]}</p>
-            <p><b>Backers:</b> ${game["backers"]}</p>
-            <div id="pledge-div">
-                <button id="pledge-button">Pledge</button>
+            <p id="total-backers-${i}"><b>Backers:</b> ${game["backers"]}</p>
+            <div id="pledge-div-${i}">
+                <button class="pledge-button" id="pledge-btn-${i}">Pledge</button>
             </div>
             `;
 
         // append the game to the games-container
         gamesContainer.appendChild(gamesDiv)
 
+        i++;
+    }
+
+    //for loop to add event listener to each pledge button
+    for (let j = 0; j < i; j++){
+        (function (index) {
+            document.getElementById(`pledge-btn-${index}`).addEventListener("click", function () {
+                makePledge(index);
+            });
+        })(j)
     }
 
 }
@@ -194,32 +208,45 @@ secondGameContainer.appendChild(runnerUpGameName);
 /************************************************************************************
  * Extra additions after challenge 7
  * Adding feature to make pledge to games - not a permanent change but still interesting change
- * Adding feature to submit own game to Sea Monster Crowdfunding
  */
 
-// can't use getElementsByClassName() since it is a list that can't use DOM attributes
-// getElementById only works on the first card
+function makePledge(idNum){
 
-const pledgeDiv = document.getElementById("pledge-div");
-document.getElementById("pledge-button").addEventListener("click", makePledge);
-
-function makePledge(){
-    pledgeDiv.innerHTML = `
-    <form id="pledge-form">
+    document.getElementById(`pledge-div-${idNum}`).innerHTML = `
+    <form class="pledge-form">
     <label for="plede-amount">Pledge Amount:</label>
-    <input type="text" id="pledge-amount" name="fname"><br><br>
+    <input type="number" id="pledge-amount" name="pledgeAmount"><br><br>
+    <input type="submit" value="Submit">
     </form>
     `;
 
-    document.getElementById('pledge-form').addEventListener('submit', function(){
+    //Upon submitting, the appropriate data will be updated in the card although the actual data in games.js will not
+    document.querySelector(`#pledge-div-${idNum} .pledge-form`).addEventListener('submit', function(event) {
+    
+        const formData = new FormData(this); // 'this' refers to the form element
+    
+        const pledgedAmount = formData.get('pledgeAmount'); // Access the value by the input's name attribute
+        console.log("Pledged Amount:", pledgedAmount);
+        if(pledgedAmount > 0){
+            deleteChildElements(document.getElementById(`pledge-div-${idNum}`));
+        }
 
+        //update pledge and backer count
+        const thisGame = GAMES_JSON.find((game) => game.name == document.getElementById(`game-title-${idNum}`).innerHTML.toString())
+        thisGame.pledged = parseInt(thisGame.pledged) + parseInt(pledgedAmount);
+        thisGame.backers = parseInt(thisGame.backers) + 1;
+
+        //update html template with appropriate amounts
+        document.getElementById(`game-title-${idNum}`).parentElement.innerHTML =
+        `<h2 id="game-title-${idNum}">${thisGame.name}</h2>
+        <img src=${thisGame.img} class='game-img' />
+        <p>${thisGame.description}</p>
+        <p id="total-pledged-${idNum}"><b>Pledged:</b> \$${thisGame.pledged}</p>
+        <p><b>Goal:</b> \$${thisGame.goal}</p>
+        <p id="total-backers-${idNum}"><b>Backers:</b> ${thisGame.backers}</p>
+        <div id="pledge-div-${i}">
+            <p>Thank you for making a pledge!</p>
+        </div>`;
     });
-}
-
-function submitPledge(){
-
-}
-
-function cancelPledge(){
-
+    
 }
